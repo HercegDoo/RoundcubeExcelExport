@@ -1,0 +1,18 @@
+{
+    "name": "hercegdoo/roundcube-excel-export",
+    "description": "Roundcube Excel Export is a plugin for the Roundcube webmail client that allows users to export the contents of an email folder to an Excel file (.xlsx). This plugin is designed to help users easily back up or analyze their emails in a structured format.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hercegdoo\\RoundcubeExcelExport\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Amel Junuzović",
+            "email": "maniaba@outlook.com"
+        }
+    ],
+    "require": {}
+}
