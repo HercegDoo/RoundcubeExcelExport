@@ -33,7 +33,7 @@
    You can install the required dependencies using Composer. Navigate to the plugin directory and run the following command:
 
    ```bash
-   composer install
+   composer install --no-dev
    ```
 
 ## Usage
