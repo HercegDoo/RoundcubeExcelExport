@@ -16,6 +16,12 @@ final class rc_excel_export extends rcube_plugin
      * @var string $task
      */
     public $task = 'mail';
+
+    /**
+     * Array mapping export format extensions to their corresponding writer classes.
+     *
+     * @var array{string: class-string<IWriter>}
+     */
     private array $exportFormats = [
         'xlsx' => Xlsx::class,
         'xls' => Xls::class,
@@ -24,6 +30,12 @@ final class rc_excel_export extends rcube_plugin
     ];
     private string $charset = 'ASCII';
 
+    /**
+     * Initializes the plugin by preparing the configuration, adding localization texts,
+     * registering hooks, and setting up the export action.
+     *
+     * @return void
+     */
     public function init(): void
     {
         $this->prepare_config();
@@ -39,15 +51,27 @@ final class rc_excel_export extends rcube_plugin
         }
     }
 
+    /**
+     * Prepares the configuration settings by loading the configuration and setting the charset.
+     *
+     * @return void
+     */
     private function prepare_config(): void
     {
+        // Get the instance of the rcmail class
         $rcmail = rcmail::get_instance();
+
+        // Load the configuration settings
         $this->load_config();
+
+        // Set the charset for the Excel export, defaulting to RCUBE_CHARSET if not specified
         $this->charset = $rcmail->config->get('excel_charset', RCUBE_CHARSET);
     }
 
     /**
-     * Adds download options menu to the page
+     * Adds the export button to the message menu and the export menu to the footer.
+     *
+     * @return void
      */
     public function exportMenu()
     {
@@ -98,11 +122,21 @@ final class rc_excel_export extends rcube_plugin
         );
     }
 
+    /**
+     * Returns the list of supported export formats.
+     *
+     * @return string[]
+     */
     private function formats(): array
     {
         return array_keys($this->exportFormats);
     }
 
+    /**
+     * Adds the export button to the message menu and the export menu to the footer.
+     *
+     * @return void
+     */
     public function startup(): void
     {
         $rcmail = rcmail::get_instance();
@@ -112,6 +146,11 @@ final class rc_excel_export extends rcube_plugin
         $rcmail->output->add_label('RoundcubeExcelExport.exporting');
     }
 
+    /**
+     * Exports the selected messages to an Excel file in the specified format.
+     *
+     * @return void
+     */
     public function exportToExcel()
     {
         $this->removeLoadingSpinner();
@@ -144,6 +183,11 @@ final class rc_excel_export extends rcube_plugin
         }
     }
 
+    /**
+     * Removes the loading spinner from the page by deleting the cookie with the request ID.
+     *
+     * @return void
+     */
     private function removeLoadingSpinner()
     {
         $requestId = rcube_utils::get_input_string('_request_id', rcube_utils::INPUT_POST) ?? null;
@@ -154,14 +198,20 @@ final class rc_excel_export extends rcube_plugin
         }
     }
 
+    /**
+     * Generates an Excel file containing the selected messages.
+     *
+     * @param array<string, numeric-string[]> $messageSet
+     * @param string $format
+     * @return void
+     * @throws Exception
+     */
     private function generateExcelFile(array $messageSet, string $format): void
     {
         $rcmail = rcmail::get_instance();
         $imap = $rcmail->get_storage();
 
         $spreadsheet = new Spreadsheet();
-
-
         $totalSelectedMessages = 0;
 
         foreach ($messageSet as $mbox => $uids) {
@@ -223,20 +273,21 @@ final class rc_excel_export extends rcube_plugin
             }
         }
 
+        // remove the default sheet created by PhpSpreadsheet
         $spreadsheet->removeSheetByIndex(0);
 
-
+        // set the headers
         $rcmail->output->download_headers(
             "ExcelExport_" . date('Y-m-d_H-i-s') . ".$format", [
             'type_charset' => $this->charset,
             'time_limit' => $rcmail->config->get('max_execution_time', (int)ini_get('max_execution_time')) + 30,
         ]);
 
-
         /** @var IWriter $writer */
         $writer = new $this->exportFormats[$format]($spreadsheet);
 
         if ($writer instanceof Csv) {
+            // set the CSV writer settings
             $writer->setUseBOM(true); // Add BOM for UTF-8 encoding
             $writer->setDelimiter(",");
             $writer->setEnclosure('"');
@@ -244,9 +295,7 @@ final class rc_excel_export extends rcube_plugin
             $writer->setSheetIndex(0);
         }
 
-        // set the charset
         $writer->save('php://output');
-        // exit
         exit;
     }
 

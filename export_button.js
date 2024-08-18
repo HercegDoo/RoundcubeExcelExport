@@ -1,11 +1,17 @@
 /**
- * Roundcube plugin to add a download button to the message list toolbar.
+ * Export Excel Plugin for Roundcube Webmail
+ * @type {{init: ExportExcelPlugin.init}}
  */
-
 const ExportExcelPlugin = function () {
 
+    /**
+     * @type {string[]} formats - list of available formats to export, defined in the button's data-formats attribute
+     */
     let formats;
 
+    /**
+     * Registers the menu for the export button and sets up the necessary event listeners and commands.
+     */
     const registerMenu = function () {
 
         // find and modify default download link/button
@@ -42,6 +48,9 @@ const ExportExcelPlugin = function () {
 
     }
 
+    /**
+     * Registers the commands for each available format to export.
+     */
     const registerCommands = function () {
         formats.forEach(function (format) {
             rcmail.register_command('export_excel_' + format, function () {
@@ -50,7 +59,10 @@ const ExportExcelPlugin = function () {
         });
     }
 
-
+    /**
+     * Display loading indicator and set interval to check if the file is cookie removed
+     * @param requestId
+     */
     const displayLoadingIndicator = function (requestId) {
         const expires = new Date();
         expires.setDate(expires.getDate() + 1);
@@ -80,6 +92,11 @@ const ExportExcelPlugin = function () {
 
     }
 
+
+    /**
+     * Export handler, sends a POST request to the server to download the selected messages in the specified format.
+     * @param format
+     */
     const exportHandler = function (format) {
         // multi-message download, use hidden form to POST selection
         if (rcmail.message_list && rcmail.message_list.get_selection().length > 0) {
@@ -123,6 +140,7 @@ const ExportExcelPlugin = function () {
     };
 }();
 
+// initialize the plugin
 window.rcmail && rcmail.addEventListener('init', function () {
     ExportExcelPlugin.init();
 });
