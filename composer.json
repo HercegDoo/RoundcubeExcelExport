@@ -1,0 +1,39 @@
+{
+  "name": "hercegdoo/roundcube-excel-export",
+  "description": "Roundcube Excel Export is a plugin for the Roundcube webmail client that allows users to export the contents of an email folder to an Excel file (.xlsx). This plugin is designed to help users easily back up or analyze their emails in a structured format.",
+  "type": "library",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Amel Junuzović",
+      "email": "maniaba@outlook.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "phpoffice/phpspreadsheet": "^2.2"
+  },
+  "require-dev": {
+    "roundcube/roundcubemail": "1.6.5"
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "roundcube/roundcubemail",
+        "version": "1.6.5",
+        "source": {
+          "url": "https://github.com/roundcube/roundcubemail",
+          "type": "git",
+          "reference": "1.6.5"
+        },
+        "dist": {
+          "url": "https://github.com/roundcube/roundcubemail/archive/refs/tags/1.6.5.zip",
+          "type": "zip"
+        }
+      }
+    }
+  ]
+}
