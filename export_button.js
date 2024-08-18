@@ -69,7 +69,7 @@ const ExportExcelPlugin = function () {
 
         rcmail.set_cookie(requestId, 'exporting', expires);
 
-        const lock = rcmail.set_busy(true, 'RoundcubeExcelExport.exporting');
+        const lock = rcmail.set_busy(true, 'rc_excel_export.exporting');
 
         // set interval to check if the file is cookie removed
         const interval = setInterval(() => {
