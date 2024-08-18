@@ -84,7 +84,7 @@ final class rc_excel_export extends rcube_plugin
                 ['role' => 'menuitem'],
                 $this->api->output->button([
                     'command' => 'export_excel',
-                    'label' => 'RoundcubeExcelExport.export_excel',
+                    'label' => 'rc_excel_export.export_excel',
                     'type' => 'link',
                     'classact' => 'icon export active',
                     'class' => 'icon export disabled',
@@ -107,7 +107,7 @@ final class rc_excel_export extends rcube_plugin
         foreach ($this->formats() as $type) {
             $menu[] = html::tag('li', null, $rcmail->output->button([
                 'command' => "export_excel_{$type}",
-                'label' => "RoundcubeExcelExport.export_excel_{$type}",
+                'label' => "rc_excel_export.export_excel_{$type}",
                 'class' => "download {$type} disabled",
                 'classact' => "download {$type} active",
                 'type' => 'link',
@@ -143,7 +143,7 @@ final class rc_excel_export extends rcube_plugin
         $rcmail->output->set_env('plugin_export_excel_settings', [
             'max_execution_time' => $rcmail->config->get('max_execution_time', 900),
         ]);
-        $rcmail->output->add_label('RoundcubeExcelExport.exporting');
+        $rcmail->output->add_label('rc_excel_export.exporting');
     }
 
     /**
