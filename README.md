@@ -13,20 +13,20 @@
 1. **Download or Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/RoundcubeExcelExport.git
+   git clone git@github.com:HercegDoo/rc_excel_export.git
 
 2. **Copy the Plugin:**
-   Copy the `RoundcubeExcelExport` folder to your Roundcube installation's `plugins` directory.
+   Copy the `rc_excel_export` folder to your Roundcube installation's `plugins` directory.
 
    ```bash
-   cp -r RoundcubeExcelExport /path/to/roundcube/plugins/
+   cp -r rc_excel_export /path/to/roundcube/plugins/
    ```
 
 3. **Enable the Plugin:**
    Edit your Roundcube `config/config.inc.php` file to enable the plugin by adding it to the `$config['plugins']` array.
 
    ```php
-   $config['plugins'] = array('RoundcubeExcelExport', ...);
+   $config['plugins'] = array('rc_excel_export', ...);
    ```
 
 4. **Install Dependencies:**
@@ -46,7 +46,7 @@
 ## Requirements
 - Roundcube 1.3 or higher
 - PHP 7.0 or higher
-- PHPExcel or PhpSpreadsheet library
+- PhpSpreadsheet library
 
 ## License
 This plugin is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
@@ -55,5 +55,5 @@ This plugin is licensed under the MIT License. See the [LICENSE](LICENSE) file f
 Contributions are welcome! Please fork this repository and submit a pull request for any features, bug fixes, or enhancements.
 
 ## Contact
-For issues or questions, please open an issue on GitHub or contact the maintainer at [rti@dooherceg.ba](rti@dooherceg.ba).
+For issues or questions, please open an issue on GitHub or contact the maintainer at [rti@dooherceg.ba](mailto:rrti@dooherceg.ba).
 

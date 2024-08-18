@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-final class RoundcubeExcelExport extends rcube_plugin
+final class rc_excel_export extends rcube_plugin
 {
     /**
      * @var string $task
